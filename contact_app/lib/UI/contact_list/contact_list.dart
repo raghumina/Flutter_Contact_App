@@ -1,7 +1,21 @@
+import 'package:contact_app/data/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
 
-class ContactsListPage extends StatelessWidget {
+class ContactsListPage extends StatefulWidget {
+  @override
+  State<ContactsListPage> createState() => _ContactsListPageState();
+}
+
+class _ContactsListPageState extends State<ContactsListPage> {
+  List<Contact> _contacts = List.generate(50, (index) {
+    return Contact(
+      name: faker.person.firstName() + ' ' + faker.person.lastName(),
+      email: faker.internet.freeEmail(),
+      phoneNumber: random.integer(1000000).toString(),
+    );
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,14 +23,12 @@ class ContactsListPage extends StatelessWidget {
         title: Text('Contacts'),
       ),
       body: ListView.builder(
-        itemCount: 30,
+        itemCount: _contacts.length,
         // Runs and Build every single list item
         itemBuilder: (context, index) {
-          return Center(
-            child: Text(
-              faker.person.firstName() + ' ' + faker.person.lastName(),
-              style: TextStyle(fontSize: 30),
-            ),
+          return ListTile(
+            title: Text(_contacts[index].name),
+            subtitle: Text(_contacts[index].email),
           );
         },
       ),
