@@ -8,13 +8,21 @@ class ContactsListPage extends StatefulWidget {
 }
 
 class _ContactsListPageState extends State<ContactsListPage> {
-  List<Contact> _contacts = List.generate(50, (index) {
-    return Contact(
-      name: faker.person.firstName() + ' ' + faker.person.lastName(),
-      email: faker.internet.freeEmail(),
-      phoneNumber: random.integer(1000000).toString(),
-    );
-  });
+  // underscore acts like a private access modifier
+  late List<Contact> _contacts;
+
+// runs when widget is initialized
+  @override
+  void initState() {
+    super.initState();
+    _contacts = List.generate(50, (index) {
+      return Contact(
+        name: faker.person.firstName() + ' ' + faker.person.lastName(),
+        email: faker.internet.freeEmail(),
+        phoneNumber: random.integer(1000000).toString(),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +37,28 @@ class _ContactsListPageState extends State<ContactsListPage> {
           return ListTile(
             title: Text(_contacts[index].name),
             subtitle: Text(_contacts[index].email),
+            trailing: IconButton(
+              icon: Icon(
+                _contacts[index].isFavourite ? Icons.star : Icons.star_border,
+                color: _contacts[index].isFavourite
+                    ? Colors.amber
+                    : Colors.blueAccent,
+              ),
+              onPressed: () {
+                setState(() {
+                  _contacts[index].isFavourite = !_contacts[index].isFavourite;
+                  _contacts.sort((a, b) {
+                    if (a.isFavourite) {
+                      return -1;
+                    } else if (b.isFavourite) {
+                      return 1;
+                    } else {
+                      return 0;
+                    }
+                  });
+                });
+              },
+            ),
           );
         },
       ),
