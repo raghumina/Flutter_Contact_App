@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class Contact {
   String name;
   String email;

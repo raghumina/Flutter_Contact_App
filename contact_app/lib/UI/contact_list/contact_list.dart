@@ -1,8 +1,11 @@
+import 'package:contact_app/UI/widget/contact_tile.dart';
 import 'package:contact_app/data/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
 
 class ContactsListPage extends StatefulWidget {
+  const ContactsListPage({super.key});
+
   @override
   State<ContactsListPage> createState() => _ContactsListPageState();
 }
@@ -34,31 +37,22 @@ class _ContactsListPageState extends State<ContactsListPage> {
         itemCount: _contacts.length,
         // Runs and Build every single list item
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(_contacts[index].name),
-            subtitle: Text(_contacts[index].email),
-            trailing: IconButton(
-              icon: Icon(
-                _contacts[index].isFavourite ? Icons.star : Icons.star_border,
-                color: _contacts[index].isFavourite
-                    ? Colors.amber
-                    : Colors.blueAccent,
-              ),
-              onPressed: () {
-                setState(() {
-                  _contacts[index].isFavourite = !_contacts[index].isFavourite;
-                  _contacts.sort((a, b) {
-                    if (a.isFavourite) {
-                      return -1;
-                    } else if (b.isFavourite) {
-                      return 1;
-                    } else {
-                      return 0;
-                    }
-                  });
+          return ContactTile(
+            contact: _contacts[index],
+            onFavouritePressed: () {
+              setState(() {
+                _contacts[index].isFavourite = !_contacts[index].isFavourite;
+                _contacts.sort((a, b) {
+                  if (a.isFavourite) {
+                    return -1;
+                  } else if (b.isFavourite) {
+                    return 1;
+                  } else {
+                    return 0;
+                  }
                 });
-              },
-            ),
+              });
+            },
           );
         },
       ),
