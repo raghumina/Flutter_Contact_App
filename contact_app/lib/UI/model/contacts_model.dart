@@ -19,14 +19,35 @@ class ContactModel extends Model {
 
   void changeFavoriteStatus(int index) {
     _contacts[index].isFavourite = !_contacts[index].isFavourite;
+    sortContacts();
+    notifyListeners();
+  }
+
+  void sortContacts() {
     _contacts.sort((a, b) {
-      if (a.isFavourite) {
-        return -1;
-      } else if (b.isFavourite) {
-        return 1;
-      } else {
-        return 0;
+      int comparisonResult;
+      comparisonResult = _compareBasedOnFavouriteStatus(a, b);
+// If the favourite status of two contacts is identical.
+// secondary, alphabatical sorting kicks in.
+      if (comparisonResult == 0) {
+        comparisonResult = compareAlphabetically(a, b);
       }
+
+      return comparisonResult;
     });
+  }
+
+  int _compareBasedOnFavouriteStatus(Contact a, Contact b) {
+    if (a.isFavourite) {
+      return -1;
+    } else if (b.isFavourite) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  int compareAlphabetically(Contact a, Contact b) {
+    return a.name.compareTo(b.name);
   }
 }

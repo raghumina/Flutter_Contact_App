@@ -21,6 +21,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
         appBar: AppBar(
           title: const Text('Contacts'),
         ),
+        // Scope model descendant runs when notifyListeners() is called from the model
         body: ScopedModelDescendant<ContactModel>(
           builder: ((context, child, model) {
             return ListView.builder(
