@@ -23,6 +23,7 @@ class _ContactFormState extends State<ContactForm> {
           SizedBox(height: 10),
           TextFormField(
             onSaved: (value) => _name = value!,
+            validator: _validateName,
             decoration: InputDecoration(
               labelText: 'Name',
               border: OutlineInputBorder(
@@ -51,9 +52,12 @@ class _ContactFormState extends State<ContactForm> {
             ),
           ),
           SizedBox(height: 10),
+          // Accessing form through form key
           ElevatedButton(
             onPressed: () {
-              _formKey.currentState!.save();
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+              }
             },
             //color: Theme.of(context).primaryColor,
 
@@ -73,5 +77,11 @@ class _ContactFormState extends State<ContactForm> {
         ],
       ),
     );
+  }
+
+  String? _validateName(String? value) {
+    if (value!.isEmpty) {
+      return 'Enter a name';
+    }
   }
 }
