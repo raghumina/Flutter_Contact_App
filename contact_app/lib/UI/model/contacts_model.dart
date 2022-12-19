@@ -1,32 +1,30 @@
-import 'package:faker/faker.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:contact_app/data/contact.dart';
 import 'package:faker/faker.dart' as faker;
+import 'package:scoped_model/scoped_model.dart';
 
-import '../../data/contact.dart';
-
-class ContactsModel extends Model {
-  // ignore: prefer_final_fields
-  late List<Contact> _contacts = List.generate(50, (index) {
+class ContactModel extends Model {
+  List<Contact> _contacts = List.generate(50, (index) {
     return Contact(
       name: faker.Person().firstName() + ' ' + faker.Person().lastName(),
       email: faker.Internet().freeEmail(),
-      phoneNumber: random.integer(1000000).toString(),
+      phoneNumber: faker.RandomGenerator().integer(1000000).toString(),
     );
   });
 
+  // get sure we can get contacts from different classes
   List<Contact> get contacts => _contacts;
 
-  void changeFavouriteStatus(int index) {
+  void changeFavoriteStatus(int index) {
     _contacts[index].isFavorite = !_contacts[index].isFavorite;
-
-    _contacts.sort((a, b) {
-      if (a.isFavourite) {
+    _contacts.sort(((a, b) {
+      
+      } if (a.isFavorite){
         return -1;
-      } else if (b.isFavourite) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+      } 
+    
+      
+      
+      
+      );
   }
 }

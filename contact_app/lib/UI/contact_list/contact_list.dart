@@ -1,7 +1,7 @@
 import 'package:contact_app/UI/widget/contact_tile.dart';
-import 'package:contact_app/data/contact.dart';
 import 'package:flutter/material.dart';
-import 'package:faker/faker.dart';
+// ignore: unused_import
+import 'package:contact_app/UI/model/contacts_model.dart';
 
 class ContactsListPage extends StatefulWidget {
   const ContactsListPage({super.key});
@@ -12,26 +12,13 @@ class ContactsListPage extends StatefulWidget {
 
 class _ContactsListPageState extends State<ContactsListPage> {
   // underscore acts like a private access modifier
-  late List<Contact> _contacts;
 
 // runs when widget is initialized
-  @override
-  void initState() {
-    super.initState();
-    _contacts = List.generate(50, (index) {
-      return Contact(
-        name: faker.person.firstName() + ' ' + faker.person.lastName(),
-        email: faker.internet.freeEmail(),
-        phoneNumber: random.integer(1000000).toString(),
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contacts'),
+        title: const Text('Contacts'),
       ),
       body: ListView.builder(
         itemCount: _contacts.length,
