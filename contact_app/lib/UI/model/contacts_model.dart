@@ -8,7 +8,7 @@ class ContactModel extends Model {
     var faker = Faker();
 
     return Contact(
-      name: faker.person.firstName() + ' ' + faker.person.lastName(),
+      name: '${faker.person.firstName()} ${faker.person.lastName()}',
       email: faker.internet.freeEmail(),
       phoneNumber: random.integer(1000000).toString(),
     );
@@ -16,6 +16,11 @@ class ContactModel extends Model {
 
   // get sure we can get contacts from different classes
   List<Contact> get contacts => _contacts;
+
+  void addContact(Contact contact) {
+    _contacts.add(contact);
+    notifyListeners();
+  }
 
   void changeFavoriteStatus(int index) {
     _contacts[index].isFavourite = !_contacts[index].isFavourite;

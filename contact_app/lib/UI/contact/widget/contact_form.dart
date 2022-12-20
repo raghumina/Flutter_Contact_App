@@ -1,12 +1,27 @@
+import 'package:contact_app/UI/model/contacts_model.dart';
+import 'package:contact_app/data/contact.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:contact_app/UI/contact/widget/contact_form.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ContactForm extends StatefulWidget {
-  _ContactFormState createState() => _ContactFormState();
+  final Contact? editedContact;
+  final int? editedContactIndex;
+
+  ContactForm({
+    Key? key,
+    this.editedContact,
+    this.editedContactIndex,
+  }) : super(key: key);
+
+  //const ContactForm({super.key});
+
+  @override
+  ContactFormState createState() => ContactFormState();
 }
 
-class _ContactFormState extends State<ContactForm> {
+class ContactFormState extends State<ContactForm> {
 // Keys allows us to access widgets from a different place in code
   final _formKey = GlobalKey<FormState>();
 
@@ -56,11 +71,7 @@ class _ContactFormState extends State<ContactForm> {
           SizedBox(height: 10),
           // Accessing form through form key
           ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-              }
-            },
+            onPressed: _onSaveContactButtonPressed,
             //color: Theme.of(context).primaryColor,
 
             // ignore: sort_child_properties_last
@@ -109,5 +120,15 @@ class _ContactFormState extends State<ContactForm> {
       return 'Enter a valid phone number';
     }
     return null;
+  }
+
+  void _onSaveContactButtonPressed() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+      final newContact =
+          Contact(name: _name, email: _email, phoneNumber: _phoneNumber);
+
+      ScopedModel.of<ContactModel>(context).addContact(newContact);
+    }
   }
 }
