@@ -1,3 +1,4 @@
+import 'package:contact_app/UI/contact/contact_edit_page.dart';
 import 'package:contact_app/UI/model/contacts_model.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -26,6 +27,14 @@ class ContactTile extends StatelessWidget {
           onPressed: () {
             model.changeFavoriteStatus(contactIndex);
           }),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => ContactEditPage(
+            editedContact: displayedContact,
+            editedContactIndex: contactIndex,
+          ),
+        ));
+      },
     );
   }
 }
