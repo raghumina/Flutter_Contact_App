@@ -130,15 +130,22 @@ class ContactFormState extends State<ContactForm> {
   void _onSaveContactButtonPressed() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
-      final newContact =
-          Contact(name: _name, email: _email, phoneNumber: _phoneNumber);
+      final newOrEditedContact = Contact(
+        name: _name,
+        email: _email,
+        phoneNumber: _phoneNumber,
+        // elvis operator?. returns null if editedContact is null
+        // null coalescing operator (??)
+        // if left side is null, it return right side
+        isFavourite: widget.editedContact?.isFavourite ?? false,
+      );
       if (isEditMode) {
         ScopedModel.of<ContactModel>(context).updateContact(
-          newContact,
+          newOrEditedContact,
           widget.editedContactIndex!,
         );
       } else {
-        ScopedModel.of<ContactModel>(context).addContact(newContact);
+        ScopedModel.of<ContactModel>(context).addContact(newOrEditedContact);
       }
 
       Navigator.of(context).pop();
