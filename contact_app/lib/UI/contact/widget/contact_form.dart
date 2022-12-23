@@ -29,6 +29,7 @@ class ContactFormState extends State<ContactForm> {
   late String _email;
   late String _phoneNumber;
 
+  bool get isEditMode => widget.editedContact != null;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -39,6 +40,7 @@ class ContactFormState extends State<ContactForm> {
           TextFormField(
             onSaved: (value) => _name = value!,
             validator: _validateName,
+            initialValue: widget.editedContact?.name,
             decoration: InputDecoration(
               labelText: 'Name',
               border: OutlineInputBorder(
@@ -50,6 +52,7 @@ class ContactFormState extends State<ContactForm> {
           TextFormField(
             onSaved: (value) => _email = value!,
             validator: _validateEmail,
+            initialValue: widget.editedContact?.email,
             decoration: InputDecoration(
               labelText: 'E-mail',
               border: OutlineInputBorder(
@@ -61,6 +64,7 @@ class ContactFormState extends State<ContactForm> {
           TextFormField(
             onSaved: (value) => _phoneNumber = value!,
             validator: _validatePhoneNumber,
+            initialValue: widget.editedContact?.phoneNumber,
             decoration: InputDecoration(
               labelText: 'Phone Number',
               border: OutlineInputBorder(
@@ -112,11 +116,12 @@ class ContactFormState extends State<ContactForm> {
   }
 
   String? _validatePhoneNumber(String? value) {
-    final phoneRegex = RegExp(r'^[!@#<>?":_]');
+    String phoneRegex = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = RegExp(phoneRegex);
 
     if (value!.isEmpty) {
       return 'Enter phone number';
-    } else if (!phoneRegex.hasMatch(value)) {
+    } else if (!regExp.hasMatch(value)) {
       return 'Enter a valid phone number';
     }
     return null;
@@ -127,8 +132,16 @@ class ContactFormState extends State<ContactForm> {
       _formKey.currentState?.save();
       final newContact =
           Contact(name: _name, email: _email, phoneNumber: _phoneNumber);
+      if (isEditMode) {
+        ScopedModel.of<ContactModel>(context).updateContact(
+          newContact,
+          widget.editedContactIndex!,
+        );
+      } else {
+        ScopedModel.of<ContactModel>(context).addContact(newContact);
+      }
 
-      ScopedModel.of<ContactModel>(context).addContact(newContact);
+      Navigator.of(context).pop();
     }
   }
 }

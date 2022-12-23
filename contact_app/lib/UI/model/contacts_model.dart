@@ -1,10 +1,9 @@
 import 'package:contact_app/data/contact.dart';
 import 'package:faker/faker.dart';
-
 import 'package:scoped_model/scoped_model.dart';
 
 class ContactModel extends Model {
-  final List<Contact> _contacts = List.generate(50, (index) {
+  final List<Contact> _contacts = List.generate(5, (index) {
     var faker = Faker();
 
     return Contact(
@@ -19,6 +18,11 @@ class ContactModel extends Model {
 
   void addContact(Contact contact) {
     _contacts.add(contact);
+    notifyListeners();
+  }
+
+  void updateContact(Contact contact, int contactIndex) {
+    _contacts[contactIndex] = contact;
     notifyListeners();
   }
 

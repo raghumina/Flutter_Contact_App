@@ -15,7 +15,7 @@ class ContactTile extends StatelessWidget {
     final model = ScopedModel.of<ContactModel>(context);
     final displayedContact = model.contacts[contactIndex];
     return ListTile(
-      title: Text(displayedContact.name),
+      title: Text(displayedContact.name!),
       subtitle: Text(displayedContact.email),
       trailing: IconButton(
           icon: Icon(
