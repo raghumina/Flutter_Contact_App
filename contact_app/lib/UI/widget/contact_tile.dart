@@ -5,6 +5,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:scoped_model/scoped_model.dart';
 //import 'package:flutter_slidable/flutter_slidable.dart';
 
+ContactModel contactModel = ContactModel();
+
 class ContactTile extends StatelessWidget {
   const ContactTile({
     Key? key,
@@ -17,6 +19,7 @@ class ContactTile extends StatelessWidget {
     final model = ScopedModel.of<ContactModel>(context);
     final displayedContact = model.contacts[contactIndex];
 
+// Slidable
     return Slidable(
       endActionPane: ActionPane(motion: const BehindMotion(), children: [
         SlidableAction(
@@ -26,8 +29,10 @@ class ContactTile extends StatelessWidget {
           onPressed: ((context) => {}),
         )
       ]),
+//
+
       child: ListTile(
-        title: Text(displayedContact.name!),
+        title: Text(displayedContact.name),
         subtitle: Text(displayedContact.email),
         trailing: IconButton(
             icon: Icon(

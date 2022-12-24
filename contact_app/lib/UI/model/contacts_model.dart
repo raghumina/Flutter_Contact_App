@@ -1,5 +1,6 @@
 import 'package:contact_app/data/contact.dart';
 import 'package:faker/faker.dart';
+
 import 'package:scoped_model/scoped_model.dart';
 
 class ContactModel extends Model {
