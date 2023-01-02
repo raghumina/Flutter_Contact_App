@@ -42,7 +42,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
         child: const Icon(Icons.person_add),
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: ((context) => ContactForm())));
+              MaterialPageRoute(builder: ((context) => ContactCreatePage())));
         },
       ),
     );

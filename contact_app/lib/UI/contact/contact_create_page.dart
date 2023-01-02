@@ -5,7 +5,10 @@ class ContactCreatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Create')),
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('Create'),
+      ),
       body: ContactForm(),
     );
   }
