@@ -36,7 +36,10 @@ class ContactFormState extends State<ContactForm> {
       key: _formKey,
       child: ListView(
         children: <Widget>[
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
+          _buildContactPicture(),
+          const SizedBox(height: 10),
+
           TextFormField(
             onSaved: (value) => _name = value!,
             validator: _validateName,
@@ -94,6 +97,14 @@ class ContactFormState extends State<ContactForm> {
         ],
       ),
     );
+  }
+
+  Widget _buildContactPicture() {
+    final halfScreenDiameter = MediaQuery.of(context).size.width / 2;
+    return CircleAvatar(
+        radius: halfScreenDiameter / 2,
+        child: Text(widget.editedContact!.name[0],
+            style: TextStyle(fontSize: halfScreenDiameter / 2)));
   }
 
   String? _validateName(String? value) {
