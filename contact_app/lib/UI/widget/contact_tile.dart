@@ -21,11 +21,17 @@ class ContactTile extends StatelessWidget {
 
 // Slidable
     return Slidable(
-      endActionPane: ActionPane(motion: const BehindMotion(), children: [
+      endActionPane: ActionPane(motion: const DrawerMotion(), children: [
         SlidableAction(
           icon: Icons.delete,
           label: 'Delete',
           backgroundColor: Colors.red,
+          onPressed: ((context) => {}),
+        ),
+        SlidableAction(
+          icon: Icons.share,
+          label: 'Share',
+          backgroundColor: Colors.blue,
           onPressed: ((context) => {}),
         )
       ]),
@@ -34,6 +40,11 @@ class ContactTile extends StatelessWidget {
       child: ListTile(
         title: Text(displayedContact.name),
         subtitle: Text(displayedContact.email),
+        leading: CircleAvatar(
+          child: Text(
+            displayedContact.name[0],
+          ),
+        ),
         trailing: IconButton(
             icon: Icon(
               displayedContact.isFavourite ? Icons.star : Icons.star_border,
