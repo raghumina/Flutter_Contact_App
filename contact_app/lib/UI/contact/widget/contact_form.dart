@@ -101,10 +101,26 @@ class ContactFormState extends State<ContactForm> {
 
   Widget _buildContactPicture() {
     final halfScreenDiameter = MediaQuery.of(context).size.width / 2;
-    return CircleAvatar(
-        radius: halfScreenDiameter / 2,
-        child: Text(widget.editedContact!.name[0],
-            style: TextStyle(fontSize: halfScreenDiameter / 2)));
+    return Hero(
+      tag: widget.editedContact.hashCode,
+      child: CircleAvatar(
+          radius: halfScreenDiameter / 2,
+          child: _buildCircleAvatarContant(halfScreenDiameter)),
+    );
+  }
+
+  StatelessWidget _buildCircleAvatarContant(double halfScreenDiameter) {
+    if (isEditMode) {
+      return Text(
+        widget.editedContact!.name[0],
+        style: TextStyle(fontSize: halfScreenDiameter / 2),
+      );
+    } else {
+      return Icon(
+        Icons.person,
+        size: halfScreenDiameter / 2,
+      );
+    }
   }
 
   String? _validateName(String? value) {

@@ -1,8 +1,11 @@
 import 'package:contact_app/UI/contact/contact_edit_page.dart';
 import 'package:contact_app/UI/model/contacts_model.dart';
+import 'package:contact_app/data/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scoped_model/scoped_model.dart';
+
 //import 'package:flutter_slidable/flutter_slidable.dart';
 
 ContactModel contactModel = ContactModel();
@@ -20,37 +23,51 @@ class ContactTile extends StatelessWidget {
     final displayedContact = model.contacts[contactIndex];
 
 // Slidable
+
     return Slidable(
-      endActionPane: ActionPane(motion: const DrawerMotion(), children: [
-        SlidableAction(
-          icon: Icons.delete,
-          label: 'Delete',
-          backgroundColor: Colors.red,
-          onPressed: ((context) => {}),
-        ),
-        SlidableAction(
-          icon: Icons.share,
-          label: 'Share',
-          backgroundColor: Colors.blue,
-          onPressed: ((context) => {}),
-        )
-      ]),
+      startActionPane: ActionPane(
+        // dismissible: DismissiblePane(onDismissed: () {}),
+        motion: const BehindMotion(),
+        children: [
+          SlidableAction(
+            icon: Icons.call,
+            label: 'Call',
+            backgroundColor: Colors.green,
+            onPressed: ((context) => _onDismissed()),
+          )
+        ],
+      ),
+      //key: ValueKey(index),
+      endActionPane: ActionPane(
+        motion: const DrawerMotion(),
+        children: [
+          SlidableAction(
+            icon: Icons.delete,
+            label: 'Delete',
+            backgroundColor: Colors.red,
+            onPressed: ((context) => {}),
+          ),
+          SlidableAction(
+            icon: Icons.share,
+            label: 'Share',
+            backgroundColor: Colors.blue,
+            onPressed: ((context) => {}),
+          )
+        ],
+      ),
+
 //
 
       child: ListTile(
         title: Text(displayedContact.name),
         subtitle: Text(displayedContact.email),
-        leading: CircleAvatar(
-          child: Text(
-            displayedContact.name[0],
-          ),
-        ),
+        leading: _buildCircleAvatar(displayedContact),
         trailing: IconButton(
             icon: Icon(
               displayedContact.isFavourite ? Icons.star : Icons.star_border,
               color: displayedContact.isFavourite
                   ? Colors.amber
-                  : Color.fromARGB(255, 255, 68, 68),
+                  : const Color.fromARGB(255, 255, 68, 68),
             ),
             onPressed: () {
               model.changeFavoriteStatus(contactIndex);
@@ -66,4 +83,17 @@ class ContactTile extends StatelessWidget {
       ),
     );
   }
+
+  Hero _buildCircleAvatar(Contact displayedContact) {
+    return Hero(
+      tag: displayedContact.hashCode,
+      child: CircleAvatar(
+        child: Text(
+          displayedContact.name[0],
+        ),
+      ),
+    );
+  }
 }
+
+class _onDismissed {}
