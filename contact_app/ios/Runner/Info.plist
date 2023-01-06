@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<string>This app needs to access the photo library for adding contact photo.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs to access the camera for taking contact pictures.</string>
+
 </dict>
 </plist>
