@@ -99,6 +99,7 @@ class ContactFormState extends State<ContactForm> {
     );
   }
 
+// FLUUTER
   Widget _buildContactPicture() {
     final halfScreenDiameter = MediaQuery.of(context).size.width / 2;
     return Hero(
