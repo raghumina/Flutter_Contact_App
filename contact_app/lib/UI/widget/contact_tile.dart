@@ -57,7 +57,7 @@ class ContactTile extends StatelessWidget {
       ),
 
 //
-
+// Favourite Contact 
       child: ListTile(
         title: Text(displayedContact.name),
         subtitle: Text(displayedContact.email),
