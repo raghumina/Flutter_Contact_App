@@ -10,17 +10,30 @@ import 'package:scoped_model/scoped_model.dart';
 
 ContactModel contactModel = ContactModel();
 
-class ContactTile extends StatelessWidget {
+class ContactTile extends StatefulWidget {
+  @override
+  State<ContactTile> createState() => ContactTileState();
+
   const ContactTile({
     Key? key,
     required this.contactIndex,
   }) : super(key: key);
   final int contactIndex;
+}
+
+class ContactTileState extends State<ContactTile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ContactTile(contactIndex: widget.contactIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
     final model = ScopedModel.of<ContactModel>(context);
-    final displayedContact = model.contacts[contactIndex];
+    final displayedContact = model.contacts[widget.contactIndex];
+    print(model);
 
 // Slidable
 
@@ -46,8 +59,17 @@ class ContactTile extends StatelessWidget {
             label: 'Delete',
             backgroundColor: Colors.red,
             onPressed: ((context) => {
-                  model.contacts.removeAt(contactIndex),
-                  ContactTile(contactIndex: contactIndex)
+                  print(context),
+                  print(widget.contactIndex),
+                  contactModel.contacts.removeAt(widget.contactIndex),
+                  model.contacts.remove(model.contacts[widget.contactIndex]),
+                  print(contactModel),
+                  setState(() {
+                    contactModel.updateContact(
+                        model.contacts[widget.contactIndex],
+                        widget.contactIndex);
+                  }),
+                  print(model.contacts[widget.contactIndex].name),
                 }),
           ),
           SlidableAction(
@@ -73,13 +95,13 @@ class ContactTile extends StatelessWidget {
                   : const Color.fromARGB(255, 255, 68, 68),
             ),
             onPressed: () {
-              model.changeFavoriteStatus(contactIndex);
+              model.changeFavoriteStatus(widget.contactIndex);
             }),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (_) => ContactEditPage(
               editedContact: displayedContact,
-              editedContactIndex: contactIndex,
+              editedContactIndex: widget.contactIndex,
             ),
           ));
         },
