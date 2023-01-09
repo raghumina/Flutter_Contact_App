@@ -45,7 +45,10 @@ class ContactTile extends StatelessWidget {
             icon: Icons.delete,
             label: 'Delete',
             backgroundColor: Colors.red,
-            onPressed: ((context) => {}),
+            onPressed: ((context) => {
+                  model.contacts.removeAt(contactIndex),
+                  ContactTile(contactIndex: contactIndex)
+                }),
           ),
           SlidableAction(
             icon: Icons.share,
@@ -57,7 +60,7 @@ class ContactTile extends StatelessWidget {
       ),
 
 //
-// Favourite Contact 
+// Favourite Contact
       child: ListTile(
         title: Text(displayedContact.name),
         subtitle: Text(displayedContact.email),
