@@ -60,6 +60,20 @@ class ContactTileState extends State<ContactTile> {
             backgroundColor: Colors.red,
             onPressed: ((context) => {
                   model.deleteContact(widget.contactIndex),
+                  Fluttertoast.showToast(
+                      msg:
+                          "This is a favourite contact, you still want to delete it ",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0),
+                  FlatButton(
+                    textColor: Colors.red, // foreground
+                    onPressed: () {},
+                    child: Text('FlatButton with custom foreground/background'),
+                  )
                 }),
           ),
           SlidableAction(
@@ -110,5 +124,10 @@ class ContactTileState extends State<ContactTile> {
     );
   }
 }
+
+FlatButton(
+    {required MaterialColor textColor,
+    required Null Function() onPressed,
+    required Text child}) {}
 
 class _onDismissed {}
