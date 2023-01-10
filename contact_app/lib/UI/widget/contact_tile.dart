@@ -59,17 +59,7 @@ class ContactTileState extends State<ContactTile> {
             label: 'Delete',
             backgroundColor: Colors.red,
             onPressed: ((context) => {
-                  print(context),
-                  print(widget.contactIndex),
-                  contactModel.contacts.removeAt(widget.contactIndex),
-                  model.contacts.remove(model.contacts[widget.contactIndex]),
-                  print(contactModel),
-                  setState(() {
-                    contactModel.updateContact(
-                        model.contacts[widget.contactIndex],
-                        widget.contactIndex);
-                  }),
-                  print(model.contacts[widget.contactIndex].name),
+                  model.deleteContact(widget.contactIndex),
                 }),
           ),
           SlidableAction(
