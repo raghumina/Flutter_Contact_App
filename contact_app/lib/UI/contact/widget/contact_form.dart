@@ -35,10 +35,11 @@ class ContactFormState extends State<ContactForm> {
     return Form(
       key: _formKey,
       child: ListView(
+        padding: EdgeInsets.all(5),
         children: <Widget>[
-          const SizedBox(height: 10),
+          const SizedBox(height: 50),
           _buildContactPicture(),
-          const SizedBox(height: 10),
+          const SizedBox(height: 50),
 
           TextFormField(
             onSaved: (value) => _name = value!,
@@ -46,36 +47,39 @@ class ContactFormState extends State<ContactForm> {
             initialValue: widget.editedContact?.name,
             decoration: InputDecoration(
               labelText: 'Name',
+              labelStyle: TextStyle(fontWeight: FontWeight.bold),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 12),
           TextFormField(
             onSaved: (value) => _email = value!,
             validator: _validateEmail,
             initialValue: widget.editedContact?.email,
             decoration: InputDecoration(
               labelText: 'E-mail',
+              labelStyle: TextStyle(fontWeight: FontWeight.bold),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 12),
           TextFormField(
             onSaved: (value) => _phoneNumber = value!,
             validator: _validatePhoneNumber,
             initialValue: widget.editedContact?.phoneNumber,
             decoration: InputDecoration(
               labelText: 'Phone Number',
+              labelStyle: TextStyle(fontWeight: FontWeight.bold),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 14),
           // Accessing form through form key
           ElevatedButton(
             onPressed: _onSaveContactButtonPressed,

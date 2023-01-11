@@ -3,7 +3,6 @@ import 'package:contact_app/UI/model/contacts_model.dart';
 import 'package:contact_app/data/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 //import 'package:flutter_slidable/flutter_slidable.dart';
@@ -28,6 +27,10 @@ class ContactTileState extends State<ContactTile> {
     super.initState();
     ContactTile(contactIndex: widget.contactIndex);
   }
+
+  String getInitials(String name) => name.isNotEmpty
+      ? name.trim().split(' ').map((l) => l[0]).take(2).join()
+      : '';
 
   @override
   Widget build(BuildContext context) {
@@ -59,21 +62,33 @@ class ContactTileState extends State<ContactTile> {
             label: 'Delete',
             backgroundColor: Colors.red,
             onPressed: ((context) => {
-                  model.deleteContact(widget.contactIndex),
-                  Fluttertoast.showToast(
-                      msg:
-                          "This is a favourite contact, you still want to delete it ",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0),
-                  FlatButton(
-                    textColor: Colors.red, // foreground
-                    onPressed: () {},
-                    child: Text('FlatButton with custom foreground/background'),
-                  )
+                  if (displayedContact.isFavourite)
+                    {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Alert'),
+                          content: const Text('Are you sure want to delete?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                model.deleteContact(widget.contactIndex);
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    }
+                  else
+                    {
+                      model.deleteContact(widget.contactIndex),
+                    }
                 }),
           ),
           SlidableAction(
@@ -117,17 +132,10 @@ class ContactTileState extends State<ContactTile> {
     return Hero(
       tag: displayedContact.hashCode,
       child: CircleAvatar(
-        child: Text(
-          displayedContact.name[0],
-        ),
+        child: Text(getInitials(displayedContact.name.toUpperCase())),
       ),
     );
   }
 }
-
-FlatButton(
-    {required MaterialColor textColor,
-    required Null Function() onPressed,
-    required Text child}) {}
 
 class _onDismissed {}
