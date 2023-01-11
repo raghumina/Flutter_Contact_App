@@ -6,7 +6,7 @@ class ContactEditPage extends StatelessWidget {
   final Contact editedContact;
   final int editedContactIndex;
 
-  ContactEditPage({
+  const ContactEditPage({
     Key? key,
     required this.editedContact,
     required this.editedContactIndex,
@@ -16,7 +16,8 @@ class ContactEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit'),
+        backgroundColor: Colors.red[300],
+        title: const Text('Edit'),
       ),
       body: ContactForm(
         editedContact: editedContact,

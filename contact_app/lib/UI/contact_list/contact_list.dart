@@ -18,8 +18,8 @@ class ContactsListPage extends StatefulWidget {
 
 class _ContactsListPageState extends State<ContactsListPage> {
   // underscore acts like a private access modifier
-  Icon cusIcon = Icon(Icons.search);
-  Widget cusSearchBar = Text('Contacts');
+  Icon cusIcon = const Icon(Icons.search);
+  Widget cusSearchBar = const Text('Contacts');
 // runs when widget is initialized
   @override
   Widget build(BuildContext context) {

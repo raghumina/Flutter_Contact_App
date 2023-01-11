@@ -35,7 +35,7 @@ class ContactFormState extends State<ContactForm> {
     return Form(
       key: _formKey,
       child: ListView(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         children: <Widget>[
           const SizedBox(height: 50),
           _buildContactPicture(),
@@ -47,13 +47,13 @@ class ContactFormState extends State<ContactForm> {
             initialValue: widget.editedContact?.name,
             decoration: InputDecoration(
               labelText: 'Name',
-              labelStyle: TextStyle(fontWeight: FontWeight.bold),
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           TextFormField(
             onSaved: (value) => _email = value!,
             validator: _validateEmail,

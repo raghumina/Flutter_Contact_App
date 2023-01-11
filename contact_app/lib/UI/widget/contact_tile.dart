@@ -23,6 +23,7 @@ class ContactTile extends StatefulWidget {
 class ContactTileState extends State<ContactTile> {
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     ContactTile(contactIndex: widget.contactIndex);
@@ -131,12 +132,17 @@ class ContactTileState extends State<ContactTile> {
     return Hero(
       tag: displayedContact.hashCode,
       child: CircleAvatar(
-          backgroundColor: Colors.green,
-          child: Text(getInitials(
+        backgroundColor: Colors.green.shade400,
+        child: Text(
+          style: TextStyle(fontSize: 20.0, color: Colors.black),
+          getInitials(
             displayedContact.name.toUpperCase(),
-          ))),
+          ),
+        ),
+      ),
     );
   }
 }
 
+// ignore: camel_case_types
 class _onDismissed {}
