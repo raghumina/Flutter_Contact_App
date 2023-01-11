@@ -36,7 +36,6 @@ class ContactTileState extends State<ContactTile> {
   Widget build(BuildContext context) {
     final model = ScopedModel.of<ContactModel>(context);
     final displayedContact = model.contacts[widget.contactIndex];
-    print(model);
 
 // Slidable
 
@@ -132,8 +131,10 @@ class ContactTileState extends State<ContactTile> {
     return Hero(
       tag: displayedContact.hashCode,
       child: CircleAvatar(
-        child: Text(getInitials(displayedContact.name.toUpperCase())),
-      ),
+          backgroundColor: Colors.green,
+          child: Text(getInitials(
+            displayedContact.name.toUpperCase(),
+          ))),
     );
   }
 }

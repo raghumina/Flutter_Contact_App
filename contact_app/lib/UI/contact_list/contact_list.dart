@@ -7,6 +7,8 @@ import 'package:scoped_model/scoped_model.dart';
 // ignore: unused_import
 import 'package:contact_app/UI/contact/contact_create_page.dart';
 
+import '../contact/widget/searchbar.dart';
+
 class ContactsListPage extends StatefulWidget {
   const ContactsListPage({super.key});
 
@@ -16,13 +18,22 @@ class ContactsListPage extends StatefulWidget {
 
 class _ContactsListPageState extends State<ContactsListPage> {
   // underscore acts like a private access modifier
-
+  Icon cusIcon = Icon(Icons.search);
+  Widget cusSearchBar = Text('Contacts');
 // runs when widget is initialized
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contacts'),
+        elevation: 20.0,
+        actions: <Widget>[
+          // Search bar and button
+          IconButton(
+              onPressed: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const SearchPage())),
+              icon: const Icon(Icons.search)),
+        ],
+        title: cusSearchBar,
       ),
       // Scope model descendant runs when notifyListeners() is called from the model
       body: ScopedModelDescendant<ContactModel>(
