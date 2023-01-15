@@ -134,7 +134,7 @@ class ContactTileState extends State<ContactTile> {
       child: CircleAvatar(
         backgroundColor: Colors.green.shade400,
         child: Text(
-          style: TextStyle(fontSize: 20.0, color: Colors.black),
+          style: const TextStyle(fontSize: 20.0, color: Colors.black),
           getInitials(
             displayedContact.name.toUpperCase(),
           ),
